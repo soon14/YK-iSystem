@@ -11,6 +11,7 @@
         <module>isystem-service-admin</module>
         <module>isystem-web-admin</module>
         <module>isystem-common</module>
+        <module>isystem-auth-server</module>
     </modules>
 
     <parent>

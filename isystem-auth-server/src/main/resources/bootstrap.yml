@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: isystem-client-eureka, isystem-client-zipkin, isystem-client-admin, isystem-auth-server, isystem-common-service
+      label: master
+      profile: dev

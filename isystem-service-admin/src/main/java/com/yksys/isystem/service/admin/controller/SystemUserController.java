@@ -1,7 +1,7 @@
 package com.yksys.isystem.service.admin.controller;
 
-import com.yksys.isystem.common.dto.DataTableViewPage;
-import com.yksys.isystem.common.dto.Result;
+import com.yksys.isystem.common.core.dto.DataTableViewPage;
+import com.yksys.isystem.common.core.dto.Result;
 import com.yksys.isystem.common.pojo.SystemUser;
 import com.yksys.isystem.common.vo.SystemUserVo;
 import com.yksys.isystem.service.admin.service.SystemUserService;

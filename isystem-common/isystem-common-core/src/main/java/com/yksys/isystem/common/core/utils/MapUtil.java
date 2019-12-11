@@ -15,7 +15,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.yksys.isystem.common.utils.FormUtil.camelToUnderline;
+import static com.yksys.isystem.common.core.utils.FormUtil.camelToUnderline;
+
 
 /**
  * @program: project_base
