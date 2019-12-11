@@ -1,0 +1,182 @@
+package com.yksys.isystem.common.core.utils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * StringUtils : 字符串工具类
+ */
+public class StringUtils {
+
+  public static void main(String[] args) {
+
+    
+    String test = "大中国";
+    
+    String regex = "(中国|人民|123)";
+    Pattern pattern = Pattern.compile(regex);
+    
+    Matcher matcher = pattern.matcher(test);
+    if(matcher.find()){
+      System.out.println("qqqqqqqqqqqqqq");
+    }
+        
+  }
+
+  /**
+   * 返回去除首尾空格的字符串
+   * 
+   * @param str
+   * @return
+   */
+  public static String trim2Empty(String str) {
+    if (null == str || str.isEmpty()) {
+      return "";
+    }
+    if (str.equals(" ")) {
+      return str;
+    }
+    return str.trim();
+  }
+
+  /**
+   * 返回去除尾部多余的逗号的字符串
+   * 
+   * @param str
+   * @return
+   */
+  public static String trimComma(String str) {
+    if (null == str || str.isEmpty()) {
+      return "";
+    }
+    if (str.endsWith(",")) {
+      return str.substring(0, str.length() - 1);
+    }
+    return str;
+  }
+
+  /**
+   * 
+   * 返回去除尾部多余的逗号的字符串
+   * 
+   * @param sb
+   * @return
+   */
+  public static String trimComma(StringBuilder sb) {
+    return trimComma(sb.toString());
+  }
+
+  /**
+   * 右侧补齐0
+   * 
+   * @param str
+   * @param len
+   * @return
+   */
+  public static String padZeroLeft(String str, int len) {
+    if (str == null) {
+      str = "";
+    }
+
+    int strLen = str.length();
+    if (strLen >= len) {
+      return str;
+    }
+
+    StringBuffer pad = new StringBuffer();
+    int diffLen = len - strLen;
+    for (int i = 0; i < diffLen; i++) {
+      pad.append("0");
+    }
+
+    return str.concat(pad.toString());
+
+  }
+
+  public static String padZeroRight(String str, int len) {
+    if (str == null) {
+      str = "";
+    }
+
+    int strLen = str.length();
+    if (strLen >= len) {
+      return str;
+    }
+
+    StringBuffer pad = new StringBuffer();
+    int diffLen = len - strLen;
+    for (int i = 0; i < diffLen; i++) {
+      pad.append("0");
+    }
+
+    return pad.append(str).toString();
+
+  }
+
+  /**
+   * 
+   * 判断字符串是否为空
+   * 
+   * @param str
+   * @return
+   */
+  public static boolean isEmpty(String str) {
+    return (null == str || "".equals(str));
+  }
+  
+  public static boolean equals(String s1,String s2){
+    return (isBlank(s1) && isBlank(s2)) 
+        || (isNotBlank(s1) && isNotBlank(s2) && s1.equals(s2));
+  }
+  /**
+   * 
+   * 判断字符串是否为空
+   * 
+   * @param str
+   * @return
+   */
+  public static boolean isNotEmpty(String str) {
+    return (null != str && !"".equals(str));
+  }
+  
+  /**
+   * 
+   * 判断字符串是否为空
+   * 
+   * @param str
+   * @return
+   */
+  public static boolean isBlank(String str) {
+    return (null == str || "".equals(str.trim()));
+  }
+  /**
+   * 
+   * 判断字符串是否为空
+   * 
+   * @param str
+   * @return
+   */
+  public static boolean isNotBlank(String str) {
+    return (null != str && !"".equals(str.trim()));
+  }
+  /**
+   * 
+   * 判断字符串是否为空
+   * 
+   * @param str
+   * @return
+   */
+  public static boolean isBlank(Object str) {
+    return (null == str || "".equals(str.toString().trim()));
+  }
+  /**
+   * 
+   * 判断字符串是否为空
+   * 
+   * @param str
+   * @return
+   */
+  public static boolean isNotBlank(Object str) {
+    return (null != str && !"".equals(str.toString().trim()));
+  }
+}

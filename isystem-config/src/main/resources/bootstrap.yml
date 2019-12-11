@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: isystem-config
+  boot:
+    admin:
+      client:
+        url: http://localhost:8184
+
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          uri: https://github.com/Forever1996Fyk/YK-iSystem.git
+          search-paths: isystem-config-respo
+          username: michaelkai@aliyun.com
+          password: fyk961222..
+
+  zipkin:
+    base-url: http://localhost:9411
+
+server:
+  port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health, info

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: isystem-admin
+
+server:
+  port: 8184

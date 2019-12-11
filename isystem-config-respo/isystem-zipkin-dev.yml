@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: isystem-zipkin
+
+server:
+  port: 9411
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health, info

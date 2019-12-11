@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: isystem-web-admin
+
+server:
+  port: 8601

@@ -1,0 +1,5 @@
+mybatis:
+  type-aliases-package: com.yksys.isystem.common.pojo
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
