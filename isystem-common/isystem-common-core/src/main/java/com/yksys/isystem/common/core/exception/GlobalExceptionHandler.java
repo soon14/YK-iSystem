@@ -26,4 +26,16 @@ public class GlobalExceptionHandler {
     public ExceptionResult handleParameterException(Exception e) {
         return ExceptionResult.create(902, e.getMessage());
     }
+
+    /**
+     * oauth2认证异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(ParameterException.class)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ExceptionResult handleOauth2WebResponseException(Exception e) {
+        return ExceptionResult.create(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+    }
 }

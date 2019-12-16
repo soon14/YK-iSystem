@@ -1,9 +1,6 @@
-package com.yksys.isystem.service.auth.config;
+package com.yksys.isystem.common.core.security.oauth2.client;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 /**
  * @program: YK-iSystem
@@ -12,8 +9,6 @@ import org.springframework.stereotype.Component;
  * @create: 2019-12-10 16:52
  **/
 @Data
-@Component
-@ConfigurationProperties(prefix = "authorization-param")
 public class AuthorizationParam {
     //客户端id
     private String clientId;
