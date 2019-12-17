@@ -1,8 +1,11 @@
 package com.yksys.isystem.common.core.security;
 
+import com.google.common.base.Converter;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 
 import java.util.Collection;
 

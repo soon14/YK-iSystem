@@ -1,5 +1,7 @@
 package com.yksys.isystem.service.auth.config;
 
+import com.yksys.isystem.common.core.security.YkAccessDeniedHandler;
+import com.yksys.isystem.common.core.security.YkAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
@@ -32,7 +34,7 @@ import java.io.IOException;
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     @Autowired
     private TokenStore tokenStore;
-    @Autowired
+
     private BearerTokenExtractor tokenExtractor = new BearerTokenExtractor();
 
     @Override
@@ -40,7 +42,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login/**", "/oauth/**").permitAll()
+                .antMatchers("/api/login/**", "/oauth/**").permitAll()
                 //监控端点内部放行
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .anyRequest().authenticated()

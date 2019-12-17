@@ -33,7 +33,7 @@ public class WebUtil {
     /**
      * 静态文件后缀
      */
-    private final static String[] staticFiles = Stringu
+    private final static String[] staticFiles = StringUtils.split(staticSuffix, ",");
 
     /**
      * 动态映射URL后缀
@@ -367,7 +367,7 @@ public class WebUtil {
         Map<String, String> returnMap = new HashMap();
         if (contentType != null && contentType.contains(MediaType.MULTIPART_FORM_DATA_VALUE)) {
             // form-data表单
-            MultipartResolver multipartResolver = SpringContextHolder.getBean(MultipartResolver.class);
+            MultipartResolver multipartResolver = SpringContextUtil.getBean(MultipartResolver.class);
             MultipartHttpServletRequest multiReq = multipartResolver.resolveMultipart(request);
             returnMap = conventMap(multiReq.getParameterMap());
         } else if (MediaType.APPLICATION_JSON_VALUE.equals(contentType) || MediaType.APPLICATION_JSON_UTF8_VALUE.equals(contentType)) {

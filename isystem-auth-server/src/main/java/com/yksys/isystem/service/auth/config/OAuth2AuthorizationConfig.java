@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -45,6 +46,8 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     private DataSource dataSource;
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 自定义获取客户端, 为了支持自定义权限
@@ -117,8 +120,17 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         return new JdbcApprovalStore(dataSource);
     }
 
+    @Bean
     public TokenEnhancer tokenEnhancer() {
         return new YkTokenEnhancer();
+    }
+
+
+    @Bean
+    public JdbcClientDetailsService clientDetailsService() {
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+        jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
+        return jdbcClientDetailsService;
     }
 
 }
