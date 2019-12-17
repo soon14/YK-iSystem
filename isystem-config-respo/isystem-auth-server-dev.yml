@@ -39,9 +39,9 @@ server:
 isystem:
   client:
     oauth2:
-      admin:
-        client-id: 123456 #客户端id
-        secret: 123456 #客户端秘钥
+      auth:
+        client-id: 7gBZcbsC7kLIWCdELIl8nxcs #客户端id
+        secret: 0osTIhce7uPvDKHz6aa67bhCukaKoYl4 #客户端秘钥
         authorized-grant-types: password #授权类型
         token-expire: 10000 #token过期时间
         token-refresh: 1500 #token刷新时间
