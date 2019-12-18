@@ -32,7 +32,6 @@ public class SystemUserController {
     @PostMapping("/addSystemUser")
     public Result addSystemUser(@RequestBody SystemUserVo systemUserVo) {
         SystemUser systemUser = systemUserVo.convert();
-        systemUser.setPassword(new BCryptPasswordEncoder().encode("123456"));
         return new Result(HttpStatus.OK.value(), "新增成功", systemUserService.addSystemUser(systemUser));
     }
 

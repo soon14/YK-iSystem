@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
         SystemUser systemUser = MapUtil.mapToObject(SystemUser.class, systemUsers.get(0), false);
 
         List<SimpleGrantedAuthority> authorities = Lists.newArrayList();
+        // 根据userId获取权限列表
         List<String> roles = systemUser.getRoles();
         for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority(role));
