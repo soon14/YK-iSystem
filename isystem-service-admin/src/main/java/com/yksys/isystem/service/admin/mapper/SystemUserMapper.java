@@ -1,4 +1,4 @@
-package com.yksys.isystem.common.mapper;
+package com.yksys.isystem.service.admin.mapper;
 
 import com.yksys.isystem.common.pojo.SystemUser;
 import org.apache.ibatis.annotations.Param;

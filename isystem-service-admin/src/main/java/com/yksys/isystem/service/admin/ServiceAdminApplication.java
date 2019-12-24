@@ -13,7 +13,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  **/
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan(basePackages = {"com.yksys.isystem.common.mapper"})
+@MapperScan(basePackages = {"com.yksys.isystem.service.admin.mapper"})
 public class ServiceAdminApplication {
 
     public static void main(String[] args) {

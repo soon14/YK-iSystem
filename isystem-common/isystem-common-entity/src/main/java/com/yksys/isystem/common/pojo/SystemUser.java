@@ -55,6 +55,4 @@ public class SystemUser {
     private Integer status;
     //盐
     private String salt;
-    //角色
-    private List<String> roles = Arrays.asList("ROLE_ADMIN", "ROLE_USER");
 }

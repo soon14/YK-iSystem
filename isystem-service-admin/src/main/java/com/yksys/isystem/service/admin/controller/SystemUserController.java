@@ -59,4 +59,5 @@ public class SystemUserController {
         List<Map<String, Object>> list = systemUserService.getSystemUsers(start, pageSize, map);
         return new Result(HttpStatus.OK.value(), "获取成功", new DataTableViewPage(list));
     }
+
 }

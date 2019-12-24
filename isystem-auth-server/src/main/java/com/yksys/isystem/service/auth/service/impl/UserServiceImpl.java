@@ -1,20 +1,18 @@
 package com.yksys.isystem.service.auth.service.impl;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.yksys.isystem.common.core.utils.MapUtil;
-import com.yksys.isystem.common.mapper.SystemUserMapper;
-import com.yksys.isystem.common.pojo.SystemUser;
+import com.yksys.isystem.common.core.constants.ComConstants;
+import com.yksys.isystem.common.core.dto.Result;
+import com.yksys.isystem.common.core.security.YkUserDetails;
+import com.yksys.isystem.common.core.security.oauth2.client.Oauth2ClientProperties;
+import com.yksys.isystem.common.model.SystemUserInfo;
 import com.yksys.isystem.service.auth.service.UserService;
+import com.yksys.isystem.service.auth.service.feign.SystemUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,29 +24,31 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private SystemUserMapper systemUserMapper;
+    private SystemUserInfoService systemUserInfoService;
+    @Autowired
+    private Oauth2ClientProperties clientProperties;
 
     @Override
     public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
         Map<String, Object> map = Maps.newHashMap();
         map.put("account", account);
-        List<Map<String, Object>> systemUsers = systemUserMapper.getSystemUsers(map);
-        if (CollectionUtils.isEmpty(systemUsers) || systemUsers.size() != 1) {
-            throw new UsernameNotFoundException("用户不存在");
+        Result loginUserInfo = systemUserInfoService.getLoginUserInfo(map);
+        SystemUserInfo systemUserInfo = (SystemUserInfo) loginUserInfo.getData();
+        if (systemUserInfo == null) {
+            throw new UsernameNotFoundException("用户" + account + "不存在!");
         }
-        SystemUser systemUser = MapUtil.mapToObject(SystemUser.class, systemUsers.get(0), false);
+        YkUserDetails userDetails = new YkUserDetails();
+        userDetails.setUserId(systemUserInfo.getId());
+        userDetails.setAuthorities(systemUserInfo.getAuthorities());
+        userDetails.setAccount(systemUserInfo.getAccount());
+        userDetails.setPassword(systemUserInfo.getPassword());
+        userDetails.setUserIcon(systemUserInfo.getUserIcon());
+        userDetails.setCredentialsNonExpired(true);
+        userDetails.setAccountNonExpired(true);
+        userDetails.setAccountNonLocked(!systemUserInfo.getStatus().equals(ComConstants.ACCOUNT_STATUS_LOCKED));
+        userDetails.setEnabled(systemUserInfo.getStatus().equals(ComConstants.ACCOUNT_STATUS_NORMAL));
+        userDetails.setClientId(clientProperties.getOauth2().get("admin").getClientId());
 
-        List<SimpleGrantedAuthority> authorities = Lists.newArrayList();
-        // 根据userId获取权限列表
-        List<String> roles = systemUser.getRoles();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
-
-        return new User(systemUser.getAccount(), systemUser.getPassword(), authorities);
+        return userDetails;
     }
-
-//    private static class UserDetailConverter {
-//        static AuthUserDetail con
-//    }
 }

@@ -40,6 +40,69 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
+     *
+     * 判断字符串是否为空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isEmpty(String str) {
+        return (null == str || "".equals(str));
+    }
+
+    /**
+     *
+     * 判断字符串是否为空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isNotEmpty(String str) {
+        return (null != str && !"".equals(str));
+    }
+
+    /**
+     *
+     * 判断字符串是否为空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isBlank(String str) {
+        return (null == str || "".equals(str.trim()));
+    }
+    /**
+     *
+     * 判断字符串是否为空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isNotBlank(String str) {
+        return (null != str && !"".equals(str.trim()));
+    }
+    /**
+     *
+     * 判断字符串是否为空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isBlank(Object str) {
+        return (null == str || "".equals(str.toString().trim()));
+    }
+    /**
+     *
+     * 判断字符串是否为空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isNotBlank(Object str) {
+        return (null != str && !"".equals(str.toString().trim()));
+    }
+
+    /**
      * 转换为字节数组
      *
      * @return

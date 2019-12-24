@@ -1,12 +1,17 @@
 package com.yksys.isystem.service.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.yksys.isystem.common.core.exception.ParameterException;
 import com.yksys.isystem.common.core.utils.AppUtil;
-import com.yksys.isystem.common.mapper.SystemUserMapper;
+import com.yksys.isystem.common.core.utils.MapUtil;
+import com.yksys.isystem.common.model.SystemUserInfo;
 import com.yksys.isystem.common.pojo.SystemUser;
+import com.yksys.isystem.service.admin.mapper.SystemUserInfoMapper;
+import com.yksys.isystem.service.admin.mapper.SystemUserMapper;
 import com.yksys.isystem.service.admin.service.SystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yksys.isystem.service.admin.mapper.SystemUserInfoMapper">
+
+    <!-- 获取用户信息 -->
+    <select id="getSystemUserInfos" parameterType="Map" resultType="Map">
+        SELECT a.id id, a.account account, a.user_name userName, a.password password, a.nick_name nickName, a.user_icon
+        userIcon,a.age age, a.sex sex, a.marry_flag marryFlag,
+        a.education education, a.phone phone, a.email email, a.prov prov, a.city city, a.dist dist, a.address
+        address,a.idCard idCard, a.status status
+        FROM tb_system_user a
+        <where>
+            <if test="id != null and id != '' and id != 'null' and id != 'undefined'">
+                AND a.id = #{id}
+            </if>
+            <if test="account != null and account != '' and account != 'null' and account != 'undefined'">
+                AND a.account = #{account}
+            </if>
+            <if test="phone != null and phone != '' and phone != 'null' and phone != 'undefined'">
+                AND a.phone = #{phone}
+            </if>
+            <if test="email != null and email != '' and email != 'null' and email != 'undefined'">
+                AND a.email = #{email}
+            </if>
+            <if test="idCard != null and idCard != '' and idCard != 'null' and idCard != 'undefined'">
+                AND a.idCard = #{idCard}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取用户角色列表 -->
+    <select id="getUserRoles" resultType="com.yksys.isystem.common.pojo.SystemRole">
+        SELECT a.id id, a.role_name roleName, a.role_code roleCode
+        FROM tb_system_role a inner join tb_user_role b on a.id = b.role_id
+        where b.user_id = #{userId} and a.status = 1
+    </select>
+
+    <!-- 获取所有权限-->
+    <select id="getUserAuthorities" resultType="com.yksys.isystem.common.core.security.UserAuthority">
+        select a.id authorityId, a.authority authority
+        from tb_system_authority a
+        <where>
+            AND a.status = 1
+        </where>
+    </select>
+
+    <!-- 根据roleId获取权限列表-->
+    <select id="getUserAuthoritiesByRoleId" resultType="com.yksys.isystem.common.core.security.UserAuthority">
+        select a.id authorityId, a.authority authority
+        from tb_system_authority a inner join tb_authority_role b on a.id = b.authority_id
+        where b.role_id = #{roleId} and a.status = 1
+    </select>
+
+    <!-- 根据roleId获取菜单列表-->
+    <select id="getUserAuthorityMenusByRoleId" resultType="com.yksys.isystem.common.core.security.UserAuthority">
+        select a.id authorityId, a.authority authority
+        from tb_system_authority a inner join tb_authority_role b on a.id = b.authority_id
+        inner join tb_system_menu c on c.id = a.menu_id
+        where b.role_id = #{roleId} and a.status = 1 and c.status = 1
+    </select>
+</mapper>
