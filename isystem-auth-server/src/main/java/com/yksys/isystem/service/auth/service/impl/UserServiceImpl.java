@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
         Map<String, Object> map = Maps.newHashMap();
         map.put("account", account);
-        Result loginUserInfo = systemUserInfoService.getLoginUserInfo(map);
-        SystemUserInfo systemUserInfo = (SystemUserInfo) loginUserInfo.getData();
+        Result<SystemUserInfo> loginUserInfo = systemUserInfoService.getLoginUserInfo(map);
+        SystemUserInfo systemUserInfo = loginUserInfo.getData();
         if (systemUserInfo == null) {
             throw new UsernameNotFoundException("用户" + account + "不存在!");
         }
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         userDetails.setAccountNonExpired(true);
         userDetails.setAccountNonLocked(!systemUserInfo.getStatus().equals(ComConstants.ACCOUNT_STATUS_LOCKED));
         userDetails.setEnabled(systemUserInfo.getStatus().equals(ComConstants.ACCOUNT_STATUS_NORMAL));
-        userDetails.setClientId(clientProperties.getOauth2().get("admin").getClientId());
+        userDetails.setClientId(clientProperties.getOauth2().get("auth").getClientId());
 
         return userDetails;
     }

@@ -5,6 +5,7 @@ import com.yksys.isystem.common.core.constants.ComConstants;
 import com.yksys.isystem.common.core.exception.ParameterException;
 import com.yksys.isystem.common.core.security.UserAuthority;
 import com.yksys.isystem.common.core.utils.MapUtil;
+import com.yksys.isystem.common.model.AuthorityMenu;
 import com.yksys.isystem.common.model.SystemUserInfo;
 import com.yksys.isystem.common.pojo.SystemRole;
 import com.yksys.isystem.common.pojo.UserRole;
@@ -57,18 +58,46 @@ public class SystemUserInfoServiceImpl implements SystemUserInfoService {
         }
         List<UserAuthority> list = Lists.newArrayList();
         List<SystemRole> userRoles = getUserRoles(userId);
-        userRoles.forEach(userRole -> {
-            List<UserAuthority> authoritiesByRoleId = systemUserInfoMapper.getUserAuthoritiesByRoleId(userRole.getId());
-            if (!CollectionUtils.isEmpty(authoritiesByRoleId)) {
-                list.addAll(authoritiesByRoleId);
-            }
-        });
+        if (!CollectionUtils.isEmpty(userRoles)) {
+            userRoles.forEach(userRole -> {
+                List<UserAuthority> authoritiesByRoleId = systemUserInfoMapper.getUserAuthoritiesByRoleId(userRole.getId());
+                if (!CollectionUtils.isEmpty(authoritiesByRoleId)) {
+                    list.addAll(authoritiesByRoleId);
+                }
+            });
+        }
 
         if (!CollectionUtils.isEmpty(list)) {
             //集合去重
             list.stream().collect(Collectors.collectingAndThen(
                     Collectors.toCollection(
                             () -> new TreeSet<>(Comparator.comparing(UserAuthority::getAuthorityId))),
+                    ArrayList::new));
+        }
+        return list;
+    }
+
+    @Override
+    public List<AuthorityMenu> getAuthorityMenuByUserId(String userId, String roleCode) {
+        if (ComConstants.ROOT_ADMIN.equals(roleCode)) {
+            //返回所有权限
+            return systemUserInfoMapper.getAuthorityMenus();
+        }
+        List<AuthorityMenu> list = Lists.newArrayList();
+        List<SystemRole> userRoles = getUserRoles(userId);
+        if (!CollectionUtils.isEmpty(userRoles)) {
+            userRoles.forEach(userRole -> {
+                List<AuthorityMenu> authorityMenuList = systemUserInfoMapper.getUserAuthorityMenusByRoleId(userRole.getId());
+                if (!CollectionUtils.isEmpty(authorityMenuList)) {
+                    list.addAll(authorityMenuList);
+                }
+            });
+        }
+        if (!CollectionUtils.isEmpty(list)) {
+            //集合去重
+            list.stream().collect(Collectors.collectingAndThen(
+                    Collectors.toCollection(
+                            () -> new TreeSet<>(Comparator.comparing(AuthorityMenu::getAuthorityId))),
                     ArrayList::new));
         }
         return list;

@@ -1,6 +1,7 @@
 package com.yksys.isystem.service.admin.mapper;
 
 import com.yksys.isystem.common.core.security.UserAuthority;
+import com.yksys.isystem.common.model.AuthorityMenu;
 import com.yksys.isystem.common.pojo.SystemRole;
 
 import java.util.List;
@@ -40,4 +41,17 @@ public interface SystemUserInfoMapper {
      * @return
      */
     List<UserAuthority> getUserAuthoritiesByRoleId(String roleId);
+
+    /**
+     * 获取所有全列菜单列表
+     * @return
+     */
+    List<AuthorityMenu> getAuthorityMenus();
+
+    /**
+     * 根据角色id获取菜单列表
+     * @param id
+     * @return
+     */
+    List<AuthorityMenu> getUserAuthorityMenusByRoleId(String roleId);
 }

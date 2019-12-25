@@ -44,6 +44,15 @@
         </where>
     </select>
 
+    <select id="getAuthorityMenus" resultType="com.yksys.isystem.common.model.AuthorityMenu">
+        select a.id authority_id authorityId, a.authority authority, b.id id, b.menu_name menuName, b.menu_code menuCode, b.menu_desc menuDesc,
+        b.pid pid, b.scheme scheme, b.target target, b.sort sort, b.level level, b.remark remark, b.url url, b.icon icon
+        from tb_system_authority a inner join tb_system_menu b on a.menu_id = b.id
+        <where>
+            AND a.status = 1 and b.status = 1
+        </where>
+    </select>
+
     <!-- 根据roleId获取权限列表-->
     <select id="getUserAuthoritiesByRoleId" resultType="com.yksys.isystem.common.core.security.UserAuthority">
         select a.id authorityId, a.authority authority
@@ -52,8 +61,9 @@
     </select>
 
     <!-- 根据roleId获取菜单列表-->
-    <select id="getUserAuthorityMenusByRoleId" resultType="com.yksys.isystem.common.core.security.UserAuthority">
-        select a.id authorityId, a.authority authority
+    <select id="getUserAuthorityMenusByRoleId" resultType="com.yksys.isystem.common.model.AuthorityMenu">
+        selecta.id authority_id authorityId, a.authority authority, c.id id, c.menu_name menuName, c.menu_code menuCode, c.menu_desc menuDesc,
+        c.pid pid, c.scheme scheme, c.target target, c.sort sort, c.level level, c.remark remark, c.url url, c.icon icon
         from tb_system_authority a inner join tb_authority_role b on a.id = b.authority_id
         inner join tb_system_menu c on c.id = a.menu_id
         where b.role_id = #{roleId} and a.status = 1 and c.status = 1

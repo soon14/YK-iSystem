@@ -1,6 +1,8 @@
 package com.yksys.isystem.service.auth.service.feign;
 
 import com.yksys.isystem.common.core.dto.Result;
+import com.yksys.isystem.common.model.AuthorityMenu;
+import com.yksys.isystem.common.model.SystemUserInfo;
 import com.yksys.isystem.service.auth.service.fallback.SystemUserInfoServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,5 +25,12 @@ public interface SystemUserInfoService {
      * @return
      */
     @GetMapping("/api/systemUserInfo/getLoginUserInfo")
-    Result getLoginUserInfo(@RequestParam Map<String, Object> map);
+    Result<SystemUserInfo> getLoginUserInfo(@RequestParam Map<String, Object> map);
+
+    /**
+     * 获取当前登录用户的操作菜单列表
+     * @return
+     */
+    @GetMapping("/api/systemUserInfo/getCurrentUserMenus")
+    Result<AuthorityMenu> getCurrentUserMenus();
 }

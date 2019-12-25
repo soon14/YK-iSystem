@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 /**
  * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
  */
-public class StringUtils extends org.apache.commons.lang3.StringUtils {
+public class StringUtil extends org.apache.commons.lang3.StringUtils {
 
     private static final char SEPARATOR = '_';
     private static final String CHARSET = "UTF-8";
@@ -276,7 +276,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String appendURIParam(String url, String name, String value) {
         url += (url.indexOf('?') == -1 ? '?' : '&');
-        url += EncodeUtils.encodeUrl(name) + '=' + EncodeUtils.encodeUrl(value);
+        url += EncodeUtil.encodeUrl(name) + '=' + EncodeUtil.encodeUrl(value);
         return url;
     }
 
@@ -584,7 +584,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     public static String stripXss(String value) {
-        if (StringUtils.isNotBlank(value)) {
+        if (StringUtil.isNotBlank(value)) {
             Matcher matcher = null;
             for (Pattern pattern : getPatterns()) {
                 matcher = pattern.matcher(value);
@@ -649,11 +649,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(StringUtils.matchDomain("515608851@qq.com"));
-        System.out.println(StringUtils.matchDomain("www.qq.com"));
-        System.out.println(StringUtils.matchDomain("qq.com"));
-        System.out.println(StringUtils.matchIp("qq.com"));
-        System.out.println(StringUtils.matchIp("192.168.0.1"));
+        System.out.println(StringUtil.matchDomain("515608851@qq.com"));
+        System.out.println(StringUtil.matchDomain("www.qq.com"));
+        System.out.println(StringUtil.matchDomain("qq.com"));
+        System.out.println(StringUtil.matchIp("qq.com"));
+        System.out.println(StringUtil.matchIp("192.168.0.1"));
 //        System.out.println("test");
 //        System.out.println(checkPassword("f0a2adfdf56241bf839d714f7f74f4d1"));
      /*   String value = null;

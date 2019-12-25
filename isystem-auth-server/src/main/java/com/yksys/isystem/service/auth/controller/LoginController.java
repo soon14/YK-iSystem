@@ -1,10 +1,13 @@
 package com.yksys.isystem.service.auth.controller;
 
 import com.yksys.isystem.common.core.dto.Result;
+import com.yksys.isystem.common.core.security.AppSession;
 import com.yksys.isystem.common.core.security.oauth2.client.AuthorizationParam;
 import com.yksys.isystem.common.core.security.oauth2.client.Oauth2ClientProperties;
 import com.yksys.isystem.common.core.utils.WebUtil;
+import com.yksys.isystem.common.model.AuthorityMenu;
 import com.yksys.isystem.common.vo.SystemUserVo;
+import com.yksys.isystem.service.auth.service.feign.SystemUserInfoService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -16,6 +19,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +35,28 @@ public class LoginController {
     private RestTemplate restTemplate;
     @Autowired
     private Oauth2ClientProperties oauth2ClientProperties;
+    @Autowired
+    private SystemUserInfoService systemUserInfoService;
+
+    /**
+     * 获取用户基础信息
+     *
+     * @return
+     */
+    @GetMapping("/getUserProfile")
+    public Result getUserProfile() {
+        return new Result(HttpStatus.OK.value(), "获取成功", AppSession.getCurrentUser());
+    }
+
+    /**
+     * 获取当前登录用户的操作菜单列表
+     *
+     * @return
+     */
+    @GetMapping("/getCurrentUserMenus")
+    public Result getCurrentUserMenus() {
+        return systemUserInfoService.getCurrentUserMenus();
+    }
 
     @PostMapping("/login/token")
     public Result getLoginToken(@RequestBody SystemUserVo systemUserVo, @RequestHeader HttpHeaders headers) {

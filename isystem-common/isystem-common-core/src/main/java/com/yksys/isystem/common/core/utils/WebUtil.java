@@ -33,7 +33,7 @@ public class WebUtil {
     /**
      * 静态文件后缀
      */
-    private final static String[] staticFiles = StringUtils.split(staticSuffix, ",");
+    private final static String[] staticFiles = StringUtil.split(staticSuffix, ",");
 
     /**
      * 动态映射URL后缀
@@ -373,7 +373,7 @@ public class WebUtil {
         } else if (MediaType.APPLICATION_JSON_VALUE.equals(contentType) || MediaType.APPLICATION_JSON_UTF8_VALUE.equals(contentType)) {
             // json表单
             String body = getBodyString(request);
-            if (StringUtils.isNotBlank(body)) {
+            if (StringUtil.isNotBlank(body)) {
                 try {
                     returnMap = JSONObject.parseObject(body, Map.class);
                 } catch (Exception e) {
@@ -444,7 +444,7 @@ public class WebUtil {
      */
     public static String encodeHttpBasic(String userName, String password) {
         String encode = userName + ":" + password;
-        return "Basic " + EncodeUtils.encodeBase64(encode.getBytes());
+        return "Basic " + EncodeUtil.encodeBase64(encode.getBytes());
     }
 
     /**
@@ -500,8 +500,8 @@ public class WebUtil {
      * @throws Exception
      */
     public static boolean isStaticFile(String uri) {
-        return StringUtils.endsWithAny(uri, staticFiles) && !StringUtils.endsWithAny(uri, new String[]{urlSuffix})
-                && !StringUtils.endsWithAny(uri, new String[]{".jsp"}) && !StringUtils.endsWithAny(uri, new String[]{".java"});
+        return StringUtil.endsWithAny(uri, staticFiles) && !StringUtil.endsWithAny(uri, new String[]{urlSuffix})
+                && !StringUtil.endsWithAny(uri, new String[]{".jsp"}) && !StringUtil.endsWithAny(uri, new String[]{".java"});
     }
 
     /**
