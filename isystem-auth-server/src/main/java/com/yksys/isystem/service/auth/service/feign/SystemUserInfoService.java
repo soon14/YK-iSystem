@@ -32,5 +32,5 @@ public interface SystemUserInfoService {
      * @return
      */
     @GetMapping("/api/systemUserInfo/getCurrentUserMenus")
-    Result<AuthorityMenu> getCurrentUserMenus();
+    Result getCurrentUserMenus(@RequestParam String userId, @RequestParam String userName);
 }

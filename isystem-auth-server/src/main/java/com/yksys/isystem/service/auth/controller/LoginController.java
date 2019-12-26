@@ -1,9 +1,12 @@
 package com.yksys.isystem.service.auth.controller;
 
+import afu.org.checkerframework.checker.units.qual.A;
 import com.yksys.isystem.common.core.dto.Result;
+import com.yksys.isystem.common.core.exception.ParameterException;
 import com.yksys.isystem.common.core.security.AppSession;
 import com.yksys.isystem.common.core.security.oauth2.client.AuthorizationParam;
 import com.yksys.isystem.common.core.security.oauth2.client.Oauth2ClientProperties;
+import com.yksys.isystem.common.core.utils.StringUtil;
 import com.yksys.isystem.common.core.utils.WebUtil;
 import com.yksys.isystem.common.model.AuthorityMenu;
 import com.yksys.isystem.common.vo.SystemUserVo;
@@ -19,7 +22,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,7 +57,7 @@ public class LoginController {
      */
     @GetMapping("/getCurrentUserMenus")
     public Result getCurrentUserMenus() {
-        return systemUserInfoService.getCurrentUserMenus();
+        return systemUserInfoService.getCurrentUserMenus(AppSession.getCurrentUserId(), AppSession.getCurrentUser().getUsername());
     }
 
     @PostMapping("/login/token")

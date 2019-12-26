@@ -45,7 +45,7 @@
     </select>
 
     <select id="getAuthorityMenus" resultType="com.yksys.isystem.common.model.AuthorityMenu">
-        select a.id authority_id authorityId, a.authority authority, b.id id, b.menu_name menuName, b.menu_code menuCode, b.menu_desc menuDesc,
+        select a.id authorityId, a.authority authority, b.id id, b.menu_name menuName, b.menu_code menuCode, b.menu_desc menuDesc,
         b.pid pid, b.scheme scheme, b.target target, b.sort sort, b.level level, b.remark remark, b.url url, b.icon icon
         from tb_system_authority a inner join tb_system_menu b on a.menu_id = b.id
         <where>

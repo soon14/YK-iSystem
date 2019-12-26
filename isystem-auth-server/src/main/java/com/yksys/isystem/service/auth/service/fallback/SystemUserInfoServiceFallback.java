@@ -2,6 +2,7 @@ package com.yksys.isystem.service.auth.service.fallback;
 
 import com.yksys.isystem.common.core.dto.Result;
 import com.yksys.isystem.common.core.hystrix.Fallback;
+import com.yksys.isystem.common.model.AuthorityMenu;
 import com.yksys.isystem.service.auth.service.feign.SystemUserInfoService;
 import feign.hystrix.FallbackFactory;
 
@@ -23,7 +24,7 @@ public class SystemUserInfoServiceFallback implements FallbackFactory<SystemUser
             }
 
             @Override
-            public Result getCurrentUserMenus() {
+            public Result<AuthorityMenu> getCurrentUserMenus(String userId, String userName) {
                 return Fallback.badGateway();
             }
         };
