@@ -3,6 +3,7 @@ package com.yksys.isystem.service.admin.controller;
 import com.yksys.isystem.common.core.dto.Result;
 import com.yksys.isystem.common.core.security.AppSession;
 import com.yksys.isystem.common.model.AuthorityMenu;
+import com.yksys.isystem.common.model.AuthorityResource;
 import com.yksys.isystem.common.model.SystemUserInfo;
 import com.yksys.isystem.service.admin.service.SystemUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,16 @@ public class SystemUserInfoController {
     @GetMapping("/getCurrentUserMenus")
     public Result getCurrentUserMenus(@RequestParam String userId, @RequestParam String userName) {
         List<AuthorityMenu> list = systemUserInfoService.getAuthorityMenuByUserId(userId, userName);
+        return new Result(HttpStatus.OK.value(), "获取成功", list);
+    }
+
+    /**
+     * 获取所有访问权限列表
+     * @return
+     */
+    @GetMapping("/getAuthorityResources")
+    public Result getAuthorityResources() {
+        List<AuthorityResource> list = systemUserInfoService.getAuthorityResources();
         return new Result(HttpStatus.OK.value(), "获取成功", list);
     }
 }

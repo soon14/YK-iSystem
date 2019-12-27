@@ -6,6 +6,7 @@ import com.yksys.isystem.common.core.exception.ParameterException;
 import com.yksys.isystem.common.core.security.UserAuthority;
 import com.yksys.isystem.common.core.utils.MapUtil;
 import com.yksys.isystem.common.model.AuthorityMenu;
+import com.yksys.isystem.common.model.AuthorityResource;
 import com.yksys.isystem.common.model.SystemUserInfo;
 import com.yksys.isystem.common.pojo.SystemRole;
 import com.yksys.isystem.common.pojo.UserRole;
@@ -101,6 +102,11 @@ public class SystemUserInfoServiceImpl implements SystemUserInfoService {
                     ArrayList::new));
         }
         return list;
+    }
+
+    @Override
+    public List<AuthorityResource> getAuthorityResources() {
+        return systemUserInfoMapper.getAuthorityResources();
     }
 
 

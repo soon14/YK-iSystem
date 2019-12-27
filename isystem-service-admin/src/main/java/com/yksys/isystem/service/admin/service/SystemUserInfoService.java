@@ -2,6 +2,7 @@ package com.yksys.isystem.service.admin.service;
 
 import com.yksys.isystem.common.core.security.UserAuthority;
 import com.yksys.isystem.common.model.AuthorityMenu;
+import com.yksys.isystem.common.model.AuthorityResource;
 import com.yksys.isystem.common.model.SystemUserInfo;
 import com.yksys.isystem.common.pojo.SystemRole;
 
@@ -45,4 +46,11 @@ public interface SystemUserInfoService {
      * @return
      */
     List<AuthorityMenu> getAuthorityMenuByUserId(String userId, String roleCode);
+
+    /**
+     * 获取所有访问权限列表
+     * @return
+     */
+    List<AuthorityResource> getAuthorityResources();
+
 }
