@@ -7,6 +7,7 @@ import com.yksys.isystem.common.core.utils.StringUtil;
 import com.yksys.isystem.common.pojo.GatewayRoute;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cloud.netflix.zuul.RoutesRefreshedEvent;
 import org.springframework.cloud.netflix.zuul.filters.SimpleRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.ApplicationEventPublisher;
@@ -27,6 +28,12 @@ import java.util.Map;
  **/
 @Slf4j
 public class JdbcRouteLocator extends SimpleRouteLocator implements ApplicationListener<RemoteRefreshRouteEvent> {
+    @Override
+    public void doRefresh() {
+        super.doRefresh();
+        //发布本地刷新事件, 更新相关本地缓存, 解决动态加载完新路由映射无效的问题
+        publisher.publishEvent(new RoutesRefreshedEvent(this));
+    }
 
     //jdbc模板
     private JdbcTemplate jdbcTemplate;

@@ -1,5 +1,9 @@
 package com.yksys.isystem.zuul.filter;
 
+import com.yksys.isystem.common.core.constants.ComConstants;
+import com.yksys.isystem.common.core.filter.XServletRequestWrapper;
+import com.yksys.isystem.common.core.interceptor.FeignRequestInterceptor;
+import com.yksys.isystem.common.core.utils.AppUtil;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -20,5 +24,11 @@ public class PreRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         request.setAttribute("requestTime", new Date());
         // 防止流读取一次丢失问题
+        XServletRequestWrapper requestWrapper = new XServletRequestWrapper(request);
+        String xid = AppUtil.randomId();
+        //添加自定义请求头
+        requestWrapper.putHeader(ComConstants.REQUEST_HEADER_ID, xid);
+        response.setHeader(ComConstants.REQUEST_HEADER_ID, xid);
+        filterChain.doFilter(requestWrapper, response);
     }
 }

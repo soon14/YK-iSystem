@@ -3,6 +3,7 @@ package com.yksys.isystem.zuul.configuration;
 import com.yksys.isystem.common.core.security.AppSession;
 import com.yksys.isystem.common.core.security.YkAccessDeniedHandler;
 import com.yksys.isystem.common.core.security.YkAuthenticationEntryPoint;
+import com.yksys.isystem.zuul.filter.PreRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 /**
  * @program: YK-iSystem
@@ -59,5 +61,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .authenticationEntryPoint(new YkAuthenticationEntryPoint())
                 .and()
                 .csrf().disable();
+        // 前置过滤器
+        http.addFilterBefore(new PreRequestFilter(), AbstractPreAuthenticatedProcessingFilter.class);
     }
 }
