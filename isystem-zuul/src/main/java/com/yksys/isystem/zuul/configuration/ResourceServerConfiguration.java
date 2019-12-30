@@ -52,7 +52,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 //动态权限验证
-                .anyRequest().access(null)
+                .anyRequest().access("@accessManager.check(request, authentication)")
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new YkAccessDeniedHandler())

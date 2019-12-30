@@ -91,7 +91,7 @@ public class AccessManager {
                 }
             }
         }
-        log.debug("mathAuthorities result[{}] expires[{}]", result);
+        log.debug("mathAuthorities result[{}]", result);
         return result > 0;
     }
 

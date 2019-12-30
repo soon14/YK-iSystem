@@ -1,14 +1,10 @@
 package com.yksys.isystem.service.auth.controller;
 
-import afu.org.checkerframework.checker.units.qual.A;
 import com.yksys.isystem.common.core.dto.Result;
-import com.yksys.isystem.common.core.exception.ParameterException;
 import com.yksys.isystem.common.core.security.AppSession;
 import com.yksys.isystem.common.core.security.oauth2.client.AuthorizationParam;
 import com.yksys.isystem.common.core.security.oauth2.client.Oauth2ClientProperties;
-import com.yksys.isystem.common.core.utils.StringUtil;
 import com.yksys.isystem.common.core.utils.WebUtil;
-import com.yksys.isystem.common.model.AuthorityMenu;
 import com.yksys.isystem.common.vo.SystemUserVo;
 import com.yksys.isystem.service.auth.service.feign.SystemUserInfoService;
 import org.json.simple.JSONObject;
