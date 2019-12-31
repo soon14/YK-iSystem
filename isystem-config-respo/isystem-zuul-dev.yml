@@ -16,6 +16,37 @@ spring:
 server:
   port: 8769
 
+ribbon:
+  #请求连接的超时时间
+  ConnectTimeout: 2000
+  #对当前实例的重试次数
+  MaxAutoRetries: 1
+  #切换实例的重试次数
+  MaxAutoRetriesNextServer: 1
+  #对所有操作请求都进行重试
+  OkToRetryOnAllOperations: true
+  #请求处理的超时时间
+  ReadTimeout: 5000
+
+zuul:
+  #是否开启路由重试
+  retryable: true
+  add-host-header: true
+  host:
+    connect-timeout-millis: 10000
+    max-per-route-connections: 500
+    max-total-connections: 1000
+    socket-timeout-millis: 60000
+  ignored-services: '*'
+  ratelimit:
+    behind-proxy: true
+    enabled: true
+    key-prefix: cloud_rate_limit
+    repository: REDIS
+    add-response-headers: false
+  semaphore:
+    max-semaphores: 1000
+  sensitive-headers: ''
 
 apiGateway:
   #动态权限控制
@@ -29,10 +60,10 @@ apiGateway:
     - /*/login/**
     - /*/logout/**
     - /*/oauth/**
-  #忽略权限鉴定
-  authority-ignores:
-  #签名忽略
-  sign-ignores:
+#  #忽略权限鉴定
+#  authority-ignores:
+#  #签名忽略
+#  sign-ignores:
 
 
 
