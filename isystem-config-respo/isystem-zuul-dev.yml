@@ -1,6 +1,17 @@
 spring:
   application:
     name: isystem-zuul
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yk-isystem20191202?characterEncoding=utf-8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      max-active: 20
+      initial-size: 5
+      min-idle: 5
+      max-wait: 6000
 
 server:
   port: 8769
