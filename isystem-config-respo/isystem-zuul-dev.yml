@@ -16,5 +16,22 @@ spring:
 server:
   port: 8769
 
+api-gateway:
+  #动态权限控制
+  access-control: true
+  #校验参数签名
+  check-sign: false
+  #接口调试, 生产环境为false
+  api-debug: true
+  #始终放行
+  permit-all:
+    - /*/login/**
+    - /*/logout/**
+    - /*/oauth/**
+  #忽略权限鉴定
+  authority-ignores:
+  #签名忽略
+  sign-ignores:
+
 
 
