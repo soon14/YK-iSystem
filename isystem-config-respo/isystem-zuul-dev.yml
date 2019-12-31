@@ -16,17 +16,6 @@ spring:
 server:
   port: 8769
 
-ribbon:
-  #请求连接的超时时间
-  ConnectTimeout: 2000
-  #对当前实例的重试次数
-  MaxAutoRetries: 1
-  #切换实例的重试次数
-  MaxAutoRetriesNextServer: 1
-  #对所有操作请求都进行重试
-  OkToRetryOnAllOperations: true
-  #请求处理的超时时间
-  ReadTimeout: 5000
 
 apiGateway:
   #动态权限控制
